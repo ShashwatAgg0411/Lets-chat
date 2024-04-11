@@ -5,7 +5,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import io from "socket.io-client";
 
-const ENDPOINT = "http://localhost:3001";
+const ENDPOINT = "https://lets-chat-5ou7.onrender.com/";
 var socket, selectedChatCompare;
 
 function SingleChat({
