@@ -27,10 +27,14 @@ function Login({ setLandingPage, setToken }) {
       });
     } else {
       try {
-        let res = await axios.post(`http://localhost:${process.env.REACT_APP_PORT}/user/login`, {
-          email,
-          password,
-        });
+        let res = await axios.post(
+          `https://lets-chat-5ou7.onrender.com
+/user/login`,
+          {
+            email,
+            password,
+          }
+        );
         console.log(res);
 
         localStorage.setItem("token", res.data.token);
