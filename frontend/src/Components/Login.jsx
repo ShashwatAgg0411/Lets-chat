@@ -27,7 +27,7 @@ function Login({ setLandingPage, setToken }) {
       });
     } else {
       try {
-        let res = await axios.post("http://localhost:3001/user/login", {
+        let res = await axios.post(`http://localhost:${process.env.PORT}/user/login`, {
           email,
           password,
         });
