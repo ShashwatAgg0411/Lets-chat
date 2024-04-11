@@ -49,7 +49,7 @@ function AllChats({selectedChat, setSelectedChat, allChats, setAllChats, fetchAl
     } else {
       try {
         let res = await axios.get(
-          `http://localhost:3001/search?q=${searchText}&id=${currentuser._id}`
+          `https://lets-chat-5ou7.onrender.com/search?q=${searchText}&id=${currentuser._id}`
         );
         console.log(res.data);
         setSearchChats(res.data)

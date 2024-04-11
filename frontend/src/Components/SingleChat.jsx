@@ -78,7 +78,7 @@ function SingleChat({
 
   const fetchAllMessages = async () => {
     let res = await axios.get(
-      `http://localhost:3001/chat/getAllMessages/${selectedChat._id}`
+      `https://lets-chat-5ou7.onrender.com/chat/getAllMessages/${selectedChat._id}`
     );
     console.log(res.data);
     setAllMessages(res.data);
@@ -97,11 +97,14 @@ function SingleChat({
     } else {
       try {
         setInputMessage("");
-        let res = await axios.post("http://localhost:3001/message/send", {
-          sender_id: currentUser._id,
-          content: inputMessage,
-          chat_id: selectedChat._id,
-        });
+        let res = await axios.post(
+          "https://lets-chat-5ou7.onrender.com/message/send",
+          {
+            sender_id: currentUser._id,
+            content: inputMessage,
+            chat_id: selectedChat._id,
+          }
+        );
         console.log("message sent", res.data);
         // if (socket) {
         socket.emit("new message", {

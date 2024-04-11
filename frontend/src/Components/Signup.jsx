@@ -31,11 +31,14 @@ function Signup({ setLandingPage }) {
       // console.log("password", password);
       // console.log("email", email);
       try {
-        let res = await axios.post("http://localhost:3001/user/signup", {
-          name,
-          email,
-          password,
-        });
+        let res = await axios.post(
+          "https://lets-chat-5ou7.onrender.com/user/signup",
+          {
+            name,
+            email,
+            password,
+          }
+        );
         console.log(res);
         localStorage.setItem("token", res.data.token)
         localStorage.setItem("user", JSON.stringify(res.data.user))

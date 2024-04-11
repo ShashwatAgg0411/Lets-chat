@@ -83,11 +83,14 @@ function CreateGroup({
       });
     } else {
       try {
-        let res = await axios.post("http://localhost:3001/chat/createGroup", {
-          cid: cid,
-          uids: uids,
-          name: groupName,
-        });
+        let res = await axios.post(
+          "https://lets-chat-5ou7.onrender.com/chat/createGroup",
+          {
+            cid: cid,
+            uids: uids,
+            name: groupName,
+          }
+        );
 
         console.log(res.data);
         if (res.data) {

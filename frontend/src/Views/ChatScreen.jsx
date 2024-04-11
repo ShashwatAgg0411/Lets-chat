@@ -35,9 +35,12 @@ function ChatScreen({setToken}) {
     let cid = user._id;
 
     try {
-      let res = await axios.post("http://localhost:3001/chat/allChats", {
-        cid,
-      });
+      let res = await axios.post(
+        "https://lets-chat-5ou7.onrender.com/chat/allChats",
+        {
+          cid,
+        }
+      );
 
       console.log("all chats", res);
       setAllChats(res.data);

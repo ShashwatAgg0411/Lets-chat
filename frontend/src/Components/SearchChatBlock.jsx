@@ -21,7 +21,7 @@ function SearchChatBlock({
     } else {
       try {
         let res = await axios.post(
-          "http://localhost:3001/chat/getorCreateChat",
+          "https://lets-chat-5ou7.onrender.com/chat/getorCreateChat",
           {
             cid,
             uid,
