@@ -2,11 +2,10 @@
   "name": "lets-chat",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node backend/src/app.js",
-    "build": "npm install --prefix frontend && npm install --prefix backend && npm run build --prefix frontend"
+    "build": "npm install && npm install --prefix frontend && npm install --prefix backend && npm run build --prefix frontend"
   },
   "keywords": [],
   "author": "",
