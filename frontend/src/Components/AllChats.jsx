@@ -40,7 +40,7 @@ function AllChats({selectedChat, setSelectedChat, allChats, setAllChats, fetchAl
   const handleSubmitSearch = async (e) => {
     e.preventDefault();
     let currentuser = JSON.parse(localStorage.getItem("user"));
-    console.log(currentuser);
+    // console.log(currentuser);
 
     if (!currentuser || !searchText) {
       toast.error("please enter something to search", {
@@ -51,9 +51,9 @@ function AllChats({selectedChat, setSelectedChat, allChats, setAllChats, fetchAl
         let res = await axios.get(
           `https://lets-chat-5ou7.onrender.com/search?q=${searchText}&id=${currentuser._id}`
         );
-        console.log(res.data);
+        // console.log(res.data);
         setSearchChats(res.data)
-        console.log("submitted");
+        // console.log("submitted");
       } catch (err) {
         toast.error(err.response.data.message, {
           position: "top-right",

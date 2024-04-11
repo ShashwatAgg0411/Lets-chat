@@ -39,7 +39,7 @@ function Signup({ setLandingPage }) {
             password,
           }
         );
-        console.log(res);
+        // console.log(res);
         localStorage.setItem("token", res.data.token)
         localStorage.setItem("user", JSON.stringify(res.data.user))
 

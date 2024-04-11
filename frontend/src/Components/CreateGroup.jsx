@@ -59,11 +59,11 @@ function CreateGroup({
     } else {
       try {
         let res = await axios.get(
-          `http://localhost:3001/search?q=${searchforGroup}&id=${currentuser._id}`
+          `https://lets-chat-5ou7.onrender.com/search?q=${searchforGroup}&id=${currentuser._id}`
         );
-        console.log(res.data);
+        // console.log(res.data);
         setSearchResultsForGroup(res.data.slice(0, 4));
-        console.log("submitted");
+        // console.log("submitted");
       } catch (err) {
         toast.error(err.response.data.message, {
           position: "top-right",
@@ -92,7 +92,7 @@ function CreateGroup({
           }
         );
 
-        console.log(res.data);
+        // console.log(res.data);
         if (res.data) {
           setAllChats([res.data, ...allChats]);
         }

@@ -30,7 +30,7 @@ const GetAllChats = asyncHandler(async (req, res) => {
                 .populate("users", "-password")
                 .populate("admin_id").populate("messages").sort({updatedAt: -1});
             // chats = await chats
-          console.log(chats);
+          // console.log(chats);
           
             res.status(200).json(chats);
         } catch (err) {
@@ -124,7 +124,7 @@ const createGroupChat = asyncHandler(async(req, res)=> {
       let savedChat = await Chat.create(isChat)
       savedChat = await savedChat.populate("users", "-password")
       savedChat = await savedChat.populate("admin_id", "-password")
-      console.log("saved chat", savedChat)
+      // console.log("saved chat", savedChat)
       res.status(200).json(savedChat)
       
     } catch (err) {
@@ -155,7 +155,7 @@ const getAllMesages = asyncHandler(async (req, res) => {
         select:"-password",
       })
       let allMessages = target_chat.messages
-      console.log("allmessages", allMessages)
+      // console.log("allmessages", allMessages)
       // res.send("success")
       res.status(200).json(allMessages)
       

@@ -27,8 +27,8 @@ function SearchChatBlock({
             uid,
           }
         );
-        console.log("res in search block", res);
-        console.log(res.data);
+        // console.log("res in search block", res);
+        // console.log(res.data);
         let chatextracted = res.data;
         let r = allChats.filter((ch) => ch._id === chatextracted._id);
         if (r.length == 0) {
@@ -40,7 +40,7 @@ function SearchChatBlock({
         toast.error(err.response.data.message, {
           position: "top-right",
         });
-        // console.log(err);
+        console.log(err);
       }
     }
   };

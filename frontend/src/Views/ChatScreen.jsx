@@ -42,7 +42,7 @@ function ChatScreen({setToken}) {
         }
       );
 
-      console.log("all chats", res);
+      // console.log("all chats", res);
       setAllChats(res.data);
     } catch (err) {
       // console.log(err);

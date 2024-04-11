@@ -18,7 +18,7 @@ const sendMessage = asyncHandler(async (req, res) => {
             };
             let msg1 = await Message.create(msg);
             msg1 = await msg1.populate("sender", "-password");
-            console.log(msg1);
+            // console.log(msg1);
 
             let updchat = await Chat.findByIdAndUpdate(
               chat_id,
@@ -27,7 +27,7 @@ const sendMessage = asyncHandler(async (req, res) => {
               },
               { new: true }
             );
-            console.log(updchat);
+            // console.log(updchat);
             res.status(200).json(msg1)
         } catch (err) {
             console.log(err);

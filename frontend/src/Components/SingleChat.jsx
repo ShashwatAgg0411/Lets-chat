@@ -58,9 +58,9 @@ function SingleChat({
     // if (socket) {
     socket.on("new message recieved", (msgs) => {
       let newMessage = msgs.newMessage;
-      console.log(newMessage);
+      // console.log(newMessage);
       var chat = msgs.chat;
-      console.log("chat in new msg", chat)
+      // console.log("chat in new msg", chat)
 
       if (!selectedChatCompare || selectedChatCompare._id !== chat._id || (selectedChat &&selectedChat._id!==chat._id)) {
         if (!allNotifications.includes(msgs)) {
@@ -80,7 +80,7 @@ function SingleChat({
     let res = await axios.get(
       `https://lets-chat-5ou7.onrender.com/chat/getAllMessages/${selectedChat._id}`
     );
-    console.log(res.data);
+    // console.log(res.data);
     setAllMessages(res.data);
     // if (socket) {
     socket.emit("join chat", selectedChat._id);
@@ -105,7 +105,7 @@ function SingleChat({
             chat_id: selectedChat._id,
           }
         );
-        console.log("message sent", res.data);
+        // console.log("message sent", res.data);
         // if (socket) {
         socket.emit("new message", {
           newMessage: res.data,
