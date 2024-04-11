@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;   
+@tailwind utilities;
+
+.signupcontainer::-webkit-scrollbar{
+    width: 5px;
+}
+ 
+.signupcontainer::-webkit-scrollbar-track{
+    background-color: transparent;
+    border-radius: 10px;
+}
+
+.signupcontainer::-webkit-scrollbar-thumb{
+    visibility: hidden;
+    background-color: rgba(0, 0, 0, 0.259);
+    opacity: 50%;
+    border-radius: 10px;
+}
+
+.signupcontainer:hover::-webkit-scrollbar-thumb{
+    visibility: visible;
+}
+ .chatContainer > :first-child {
+    margin-top: auto !important;
+    /* use !important to prevent breakage from child margin settings */
+}
+
+ 
