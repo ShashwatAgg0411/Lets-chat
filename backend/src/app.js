@@ -13,7 +13,8 @@ const {
 } = require("../Controllers/ChatController");
 const sendMessage = require("../Controllers/MessagesController");
 
-dotenv.config();
+dotenv.config({path:'../.env'});
+console.log(process.env.PORT)
 connectDB();
 const app = express();
 
@@ -45,7 +46,7 @@ if (process.env.NODE_ENV === "production") {
 }
 //--------DEPLOYMENT---------
 
-let port_no = process.env.PORT || 3001;
+let port_no = process.env.PORT;
 const server = app.listen(port_no, () => {
   console.log(`Example app listening on port 3001`);
 });

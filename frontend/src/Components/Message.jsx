@@ -10,16 +10,18 @@ function Message({ isSentbyOwner, message, time }) {
         }`}
       >
         <div
-          className={`flex justify-between   w-fit min-w-[19%] gap-4 max-w-[90%] h-fit  px-4 py-2 rounded-2xl ${
+          className={`flex flex-wrap justify-between   w-fit min-w-[19%] gap-4 max-w-[90%] h-fit  px-4 py-2 xl:py-3 rounded-2xl ${
             isSentbyOwner ? "bg-[#6E00FF] text-white" : "bg-[#E7E7E7]  "
           }`}
         >
-          <p className=' leading-8 flex items-start'>{message}</p>
-          <p className=' text-end text-[10px] flex items-end'>
-            {moment(time, moment.DATETIME_LOCAL_MS).format(
-              "D MMM, h:mm a"
-            )}
+          <p className="  flex text-xs sm:text-sm lg:text-base items-start">
+            {message}
           </p>
+          <div className=" flex justify-end mr-0 ml-auto text-end  text-[8px] sm:text-[9px] xl:text-[10px] items-end ">
+            <p className=''>
+              {moment(time, moment.DATETIME_LOCAL_MS).format("D MMM, h:mm a")}
+            </p>
+          </div>
         </div>
       </div>
     );

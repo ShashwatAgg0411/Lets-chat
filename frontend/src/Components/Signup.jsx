@@ -32,7 +32,9 @@ function Signup({ setLandingPage }) {
       // console.log("email", email);
       try {
         let res = await axios.post(
-          "https://lets-chat-5ou7.onrender.com/user/signup",
+          process.env.REACT_APP_NODE_ENV === "production"
+            ? "https://lets-chat-5ou7.onrender.com/user/signup"
+            : "http://localhost:3001/user/signup",
           {
             name,
             email,

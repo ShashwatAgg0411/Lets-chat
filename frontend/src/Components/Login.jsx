@@ -28,8 +28,9 @@ function Login({ setLandingPage, setToken }) {
     } else {
       try {
         let res = await axios.post(
-          `https://lets-chat-5ou7.onrender.com
-/user/login`,
+          process.env.REACT_APP_NODE_ENV === "production"
+            ? `https://lets-chat-5ou7.onrender.com/user/login`
+            : "http://localhost:3001/user/login",
           {
             email,
             password,

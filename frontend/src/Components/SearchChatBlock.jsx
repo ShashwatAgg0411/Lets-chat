@@ -21,7 +21,9 @@ function SearchChatBlock({
     } else {
       try {
         let res = await axios.post(
-          "https://lets-chat-5ou7.onrender.com/chat/getorCreateChat",
+          process.env.REACT_APP_NODE_ENV === "production"
+            ? "https://lets-chat-5ou7.onrender.com/chat/getorCreateChat"
+            : "http://localhost:3001/chat/getorCreateChat",
           {
             cid,
             uid,
@@ -54,7 +56,7 @@ function SearchChatBlock({
       <div className="flex gap-3 items-center">
         <img src={Profile} alt="profile" className="w-8 h-8 "></img>
         <div>
-          <p className="text-sm font-medium line-clamp-1">{c.name}</p>
+          <p className="text-sm sm:text-xs md:text-sm font-medium line-clamp-1">{c.name}</p>
         </div>
       </div>
       <hr className="mt-1 " />

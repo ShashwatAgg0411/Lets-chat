@@ -49,7 +49,9 @@ function AllChats({selectedChat, setSelectedChat, allChats, setAllChats, fetchAl
     } else {
       try {
         let res = await axios.get(
-          `https://lets-chat-5ou7.onrender.com/search?q=${searchText}&id=${currentuser._id}`
+          process.env.REACT_APP_NODE_ENV === "production"
+            ? `https://lets-chat-5ou7.onrender.com/search?q=${searchText}&id=${currentuser._id}`
+            : `http://localhost:3001/search?q=${searchText}&id=${currentuser._id}`
         );
         // console.log(res.data);
         setSearchChats(res.data)
@@ -62,7 +64,12 @@ function AllChats({selectedChat, setSelectedChat, allChats, setAllChats, fetchAl
     }
   };
   return (
-    <div className="relative w-[25%] h-[100%] bg-white  rounded-xl p-3 flex flex-col gap-2 shadow-[0_0px_10px_5px_#bfdbfe]">
+    <div
+      className={` ${
+        selectedChat ? "hidden sm:flex" : "flex"
+      }   relative w-[80%] sm:w-[30%] xl:w-[25%] h-[100%] bg-white  rounded-xl p-3  flex-col gap-2 shadow-[0_0px_10px_5px_#bfdbfe]`}
+    >
+      <div className=" flex flex-col overflow-y-scroll signupcontainer">
       <div className="flex flex-col gap-1 pr-3 relative ">
         <form onSubmit={handleSubmitSearch}>
           <input
@@ -96,7 +103,7 @@ function AllChats({selectedChat, setSelectedChat, allChats, setAllChats, fetchAl
         onClick={() => {
           setShowCreateGroup(!showCreateGroup);
         }}
-        className=" absolute bg-white w-12 h-12  bottom-0 right-0 mb-5 mr-5 z-20 rounded-xl flex justify-center items-center cursor-pointer "
+        className=" absolute bg-white w-12 h-12   bottom-0 right-0  mb-5 mr-5 z-20 rounded-xl flex justify-center items-center cursor-pointer "
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -119,7 +126,8 @@ function AllChats({selectedChat, setSelectedChat, allChats, setAllChats, fetchAl
       )}
 
       <p className="text-lg font-bold  mt-3 ">Chats</p>
-      <div className="signupcontainer relative rounded-x  l flex-auto overflow-y-scroll">
+      {/* <div className="signupcontainer relative rounded-x  l flex-auto overflow-y-scroll"> */}
+      <div className=" relative rounded-x  l flex-auto ">
         <div className="flex flex-col   pr-2">
           {allChats &&
             allChats.map((c, idx) => (
@@ -143,6 +151,7 @@ function AllChats({selectedChat, setSelectedChat, allChats, setAllChats, fetchAl
           <ChatBlock />
           <ChatBlock /> */}
         </div>
+      </div>
       </div>
     </div>
   );

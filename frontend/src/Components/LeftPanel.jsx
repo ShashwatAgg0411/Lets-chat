@@ -18,10 +18,14 @@ function LeftPanel({
   const navigate = useNavigate();
   const [showNotification, setShowNotification] = useState(false);
   return (
-    <div className="w-[5%]   h-[100%] bg-[#6E00FF] rounded-xl ">
+    <div className="w-[12%] sm:w-[6%] xl:w-[5%]   h-[100%] bg-[#6E00FF] rounded-xl ">
       <div className="h-[100%] flex flex-col justify-between items-center py-2">
         <div className="flex items-center justify-center">
-          <img src={Profile} alt="profile" className="w-12 h-12"></img>
+          <img
+            src={Profile}
+            alt="profile"
+            className=" w-7 h-7 min-[450px]:w-9 min-[450px]:h-9 lg:w-11 lg:h-11"
+          ></img>
         </div>
 
         <div className="flex flex-col items-center justify-center gap-6 w-full">
@@ -36,7 +40,11 @@ function LeftPanel({
                 : "bg-[#612DD1] bg-opacity-90 border-r-4 border-[#F3B559]"
             } flex  w-full py-2 items-center justify-center cursor-pointer hover:bg-[#612DD1] hover:bg-opacity-90`}
           >
-            <img src={Home} alt="home" className="w-10 h-10"></img>
+            <img
+              src={Home}
+              alt="home"
+              className="  w-6 h-6 min-[450px]:w-8 min-[450px]:h-8 lg:w-10 lg:h-10"
+            ></img>
           </div>
           {/* } */}
           <div
@@ -46,7 +54,11 @@ function LeftPanel({
                 : ""
             }`}
           >
-            <img src={Message} alt="message" className="w-8 h-8"></img>
+            <img
+              src={Message}
+              alt="message"
+              className="w-5 h-5 min-[450px]:w-7 min-[450px]:h-7 lg:w-8 lg:h-8"
+            ></img>
           </div>
           <div
             onClick={() => {
@@ -77,7 +89,7 @@ function LeftPanel({
             <img
               src={NotificationIcon}
               alt="notification"
-              className=" w-10 h-10 cursor-pointer"
+              className=" w-6 h-6 min-[450px]:w-8 min-[450px]:h-8 lg:w-10 lg:h-10 cursor-pointer"
             ></img>
           </div>
         </div>
@@ -93,7 +105,11 @@ function LeftPanel({
           }}
           className="flex  w-full py-2 items-center justify-center  cursor-pointer hover:bg-[#612DD1] hover:bg-opacity-90 active:border-r-4 active:border-[#F3B559]"
         >
-          <img src={Logout} alt="profile" className="w-10 h-10"></img>
+          <img
+            src={Logout}
+            alt="profile"
+            className="w-6 h-6 min-[450px]:w-8 min-[450px]:h-8   lg:w-10 lg:h-10"
+          ></img>
         </div>
       </div>
     </div>

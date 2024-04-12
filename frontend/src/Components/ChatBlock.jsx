@@ -29,18 +29,20 @@ function ChatBlock({ c,selectedChat, setSelectedChat }) {
     >
       <div className={`flex gap-3 items-center `}>
         <img src={Profile} alt="profile" className="w-8 h-8 "></img>
-        <div className="w-full">
-          <p className="text-sm font-medium line-clamp-1">{getChatName(c)}</p>
+        <div className="w-full overflow-x-hidden">
+          <p className=" text-sm sm:text-xs md:text-sm font-medium line-clamp-1 text-ellipsis">
+            {getChatName(c)}
+          </p>
           {c.messages.length > 0 && (
             <div className="flex w-full justify-between items-center">
-              <p className="text-xs line-clamp-1">
+              <p className=" text-xs sm:text-[10px] md:text-xs line-clamp-1 text-ellipsis">
                 {c.messages[c.messages.length - 1].content}
               </p>
-              <p className=" text-[10px] ">
+              <p className=" text-[10px] sm:text-[9px] md:text-[10px] opacity-50 ">
                 {moment(
                   c.messages[c.messages.length - 1].updatedAt,
                   moment.DATETIME_LOCAL_MS
-                ).format("D MMM, h:mm a")}
+                ).format("D MMM, H:mm")}
               </p>
             </div>
           )}

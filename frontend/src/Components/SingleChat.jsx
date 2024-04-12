@@ -5,8 +5,9 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import io from "socket.io-client";
 
-const ENDPOINT = "https://lets-chat-5ou7.onrender.com/";
-var socket, selectedChatCompare;
+// const ENDPOINT = "https://lets-chat-5ou7.onrender.com/";
+// const ENDPOINT_LOCAL = "http://localhost:3001/";
+// var socket, selectedChatCompare;
 
 function SingleChat({
   selectedChat,
@@ -14,26 +15,35 @@ function SingleChat({
   fetchAllChats,
   allNotifications,
   setAllNotifications,
+  allMessages,
+  setAllMessages,
+  socket,
+  selectedChatCompare,
+  fetchAllMessages
 }) {
-  const [allMessages, setAllMessages] = useState([]);
+  // const [allMessages, setAllMessages] = useState([]);
   const [currentUser, setCurrentUser] = useState(
     JSON.parse(localStorage.getItem("user"))
   );
   const [inputMessage, setInputMessage] = useState("");
-  const [socketConnected, setSocketConnected] = useState(false);
+  // const [socketConnected, setSocketConnected] = useState(false);
 
   const divRef = useRef(null);
   const inputRef = useRef(null);
 
-  useEffect(() => {
-    socket = io(ENDPOINT);
-    socket.emit("setup", currentUser);
-    socket.on("connected", () => setSocketConnected(true));
+  // useEffect(() => {
+  //   socket = io(
+  //     process.env.REACT_APP_NODE_ENV === "production"
+  //       ? ENDPOINT
+  //       : ENDPOINT_LOCAL
+  //   );
+  //   socket.emit("setup", currentUser);
+  //   socket.on("connected", () => setSocketConnected(true));
 
-    return () => {
-      socket.disconnect();
-    };
-  }, []);
+  //   return () => {
+  //     socket.disconnect();
+  //   };
+  // }, []);
 
   useEffect(() => {
     // Scroll to bottom on page load
@@ -45,47 +55,49 @@ function SingleChat({
     }
   }, [selectedChat, allMessages]);
 
-  useEffect(() => {
-      selectedChatCompare = selectedChat;
+  // useEffect(() => {
+  //     selectedChatCompare = selectedChat;
     
-    if (selectedChat) {
-      fetchAllMessages();
-      // console.log("currentuser" ,currentUser)
-    }
-  }, [selectedChat]);
+  //   if (selectedChat) {
+  //     fetchAllMessages();
+  //     // console.log("currentuser" ,currentUser)
+  //   }
+  // }, [selectedChat]);
 
-  useEffect(() => {
-    // if (socket) {
-    socket.on("new message recieved", (msgs) => {
-      let newMessage = msgs.newMessage;
-      // console.log(newMessage);
-      var chat = msgs.chat;
-      // console.log("chat in new msg", chat)
+  // useEffect(() => {
+  //   // if (socket) {
+  //   socket.on("new message recieved", (msgs) => {
+  //     let newMessage = msgs.newMessage;
+  //     // console.log(newMessage);
+  //     var chat = msgs.chat;
+  //     // console.log("chat in new msg", chat)
 
-      if (!selectedChatCompare || selectedChatCompare._id !== chat._id || (selectedChat &&selectedChat._id!==chat._id)) {
-        if (!allNotifications.includes(msgs)) {
-          setAllNotifications([msgs, ...allNotifications])
-        }
-        //notification logic
-      } else {
-        setAllMessages([...allMessages, newMessage]);
-      }
-      fetchAllChats();
-    });
-    // }
-  });
+  //     if (!selectedChatCompare || selectedChatCompare._id !== chat._id || (selectedChat &&selectedChat._id!==chat._id)) {
+  //       if (!allNotifications.includes(msgs)) {
+  //         setAllNotifications([msgs, ...allNotifications])
+  //       }
+  //       //notification logic
+  //     } else {
+  //       setAllMessages([...allMessages, newMessage]);
+  //     }
+  //     fetchAllChats();
+  //   });
+  //   // }
+  // });
 
 
-  const fetchAllMessages = async () => {
-    let res = await axios.get(
-      `https://lets-chat-5ou7.onrender.com/chat/getAllMessages/${selectedChat._id}`
-    );
-    // console.log(res.data);
-    setAllMessages(res.data);
-    // if (socket) {
-    socket.emit("join chat", selectedChat._id);
-    // }
-  };
+  // const fetchAllMessages = async () => {
+  //   let res = await axios.get(
+  //     process.env.REACT_APP_NODE_ENV === "production"
+  //       ? `https://lets-chat-5ou7.onrender.com/chat/getAllMessages/${selectedChat._id}`
+  //       : `http://localhost:3001/chat/getAllMessages/${selectedChat._id}`
+  //   );
+  //   // console.log(res.data);
+  //   setAllMessages(res.data);
+  //   // if (socket) {
+  //   socket.emit("join chat", selectedChat._id);
+  //   // }
+  // };
 
   const sendMessage = async (e) => {
     e.preventDefault();
@@ -98,7 +110,9 @@ function SingleChat({
       try {
         setInputMessage("");
         let res = await axios.post(
-          "https://lets-chat-5ou7.onrender.com/message/send",
+          process.env.REACT_APP_NODE_ENV === "production"
+            ? "https://lets-chat-5ou7.onrender.com/message/send"
+            : "http://localhost:3001/message/send",
           {
             sender_id: currentUser._id,
             content: inputMessage,
@@ -141,20 +155,26 @@ function SingleChat({
   return (
     <>
       {!selectedChat && (
-        <div className=" relative h-[100%] w-[65%] flex flex-col  rounded-xl shadow-[0_0px_10px_5px_#bfdbfe] px-3 py-3 bg-white  ">
+        <div
+          className={`${selectedChat ? "flex" : " hidden sm:flex"} relative h-[100%] w-[85%] sm:w-[60%] xl:w-[65%] flex flex-col items-center justify-center  rounded-xl shadow-[0_0px_10px_5px_#bfdbfe] px-3 py-3 bg-white  `}
+        >
           please select a chat
         </div>
       )}
       {selectedChat && (
-        <div className=" relative h-[100%] w-[65%] flex flex-col  rounded-xl shadow-[0_0px_10px_5px_#bfdbfe] px-3 py-3 bg-white  ">
+        <div
+          className={` ${
+            selectedChat ? "flex" : " hidden sm:flex"
+          } relative h-[100%] w-[85%] min-[425px]:w-[80%] sm:w-[60%] xl:w-[65%]  flex-col  rounded-xl shadow-[0_0px_10px_5px_#bfdbfe] px-2 sm:px-3 py-3 bg-white  `}
+        >
           <div className="w-full h-fit rounded-t-xl px-2 ">
-            <div className="flex gap-4 items-center ">
+            <div className="flex gap-3 sm:gap-4 items-center ">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 // width="1em"
                 // height="1em"
                 viewBox="0 0 24 24"
-                className="w-6 h-6 mr-2 cursor-pointer"
+                className=" w-4 h-4 sm:w-6 sm:h-6 mr-2 cursor-pointer"
                 onClick={() => setSelectedChat(null)}
               >
                 <path
@@ -162,8 +182,12 @@ function SingleChat({
                   d="m4 10l-.707.707L2.586 10l.707-.707zm17 8a1 1 0 1 1-2 0zM8.293 15.707l-5-5l1.414-1.414l5 5zm-5-6.414l5-5l1.414 1.414l-5 5zM4 9h10v2H4zm17 7v2h-2v-2zm-7-7a7 7 0 0 1 7 7h-2a5 5 0 0 0-5-5z"
                 />
               </svg>
-              <img src={Profile} alt="profile" className="w-10 h-10"></img>
-              <p className="text-lg font-medium">
+              <img
+                src={Profile}
+                alt="profile"
+                className="w-7 h-7  sm:w-8 sm:h-8 xl:w-10 xl:h-10"
+              ></img>
+              <p className=" text-base sm:text-lg font-medium">
                 {selectedChat.isGroupChat
                   ? selectedChat.name
                   : getChatName(selectedChat)}

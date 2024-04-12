@@ -7,10 +7,83 @@ import { toast } from "react-toastify"
 import io from "socket.io-client";
 
 
+const ENDPOINT = "https://lets-chat-5ou7.onrender.com/";
+const ENDPOINT_LOCAL = "http://localhost:3001/";
+var socket, selectedChatCompare;
+
 function ChatScreen({setToken}) {
   const [selectedChat, setSelectedChat] = useState(null);
   const [allChats, setAllChats] = useState([]);
-  const[allNotifications, setAllNotifications] = useState([])
+  const [allNotifications, setAllNotifications] = useState([])
+  const [allMessages, setAllMessages] = useState([]);
+  const [socketConnected, setSocketConnected] = useState(false);
+    const [currentUser, setCurrentUser] = useState(
+      JSON.parse(localStorage.getItem("user"))
+    );
+
+
+    useEffect(() => {
+      socket = io(
+        process.env.REACT_APP_NODE_ENV === "production"
+          ? ENDPOINT
+          : ENDPOINT_LOCAL
+      );
+      socket.emit("setup", currentUser);
+      socket.on("connected", () => setSocketConnected(true));
+
+      return () => {
+        socket.disconnect();
+      };
+    }, []);
+  
+    useEffect(() => {
+      selectedChatCompare = selectedChat;
+
+      if (selectedChat) {
+        fetchAllMessages();
+        // console.log("currentuser" ,currentUser)
+      }
+    }, [selectedChat]);
+  
+    useEffect(() => {
+      // if (socket) {
+      socket.on("new message recieved", (msgs) => {
+        let newMessage = msgs.newMessage;
+        // console.log(newMessage);
+        var chat = msgs.chat;
+        // console.log("chat in new msg", chat)
+
+        if (
+          !selectedChatCompare ||
+          selectedChatCompare._id !== chat._id ||
+          (selectedChat && selectedChat._id !== chat._id)
+        ) {
+          if (!allNotifications.includes(msgs)) {
+            setAllNotifications([msgs, ...allNotifications]);
+          }
+          //notification logic
+        } else {
+          setAllMessages([...allMessages, newMessage]);
+        }
+        fetchAllChats();
+      });
+      // }
+    });
+  
+    const fetchAllMessages = async () => {
+      let res = await axios.get(
+        process.env.REACT_APP_NODE_ENV === "production"
+          ? `https://lets-chat-5ou7.onrender.com/chat/getAllMessages/${selectedChat._id}`
+          : `http://localhost:3001/chat/getAllMessages/${selectedChat._id}`
+      );
+      // console.log(res.data);
+      setAllMessages(res.data);
+      // if (socket) {
+      socket.emit("join chat", selectedChat._id);
+      // }
+    };
+
+  
   // const [socketConnected, setSocketConnected] = useState(false);
   //   const [currentUser, setCurrentUser] = useState(
   //     JSON.parse(localStorage.getItem("user"))
@@ -36,7 +109,11 @@ function ChatScreen({setToken}) {
 
     try {
       let res = await axios.post(
-        "https://lets-chat-5ou7.onrender.com/chat/allChats",
+        `${
+          process.env.REACT_APP_NODE_ENV === "production"
+            ? "https://lets-chat-5ou7.onrender.com/chat/allChats"
+            : "http://localhost:3001/chat/allchats"
+        }`,
         {
           cid,
         }
@@ -55,7 +132,7 @@ function ChatScreen({setToken}) {
   return (
     //   <div className='flex'>
     <div className=" relative w-full h-screen bg-gradient-to-r from-[#0083b05d] to-[#db009e53] flex items-center justify-center">
-      <div className=" relative w-[85%] h-[90%] bg-[#EFF6FC]   rounded-3xl flex  justify-between p-5 ">
+      <div className=" relative w-[90%] xl:w-[85%] h-[90%] bg-[#EFF6FC]   rounded-3xl flex  justify-between p-5 ">
         <LeftPanel
           setToken={setToken}
           selectedChat={selectedChat}
@@ -78,8 +155,11 @@ function ChatScreen({setToken}) {
           fetchAllChats={fetchAllChats}
           allNotifications={allNotifications}
           setAllNotifications={setAllNotifications}
-          // socket={socket}
-          // selectedChatCompare={selectedChatCompare}
+          allMessages={allMessages}
+          setAllMessages={setAllMessages}
+          socket={socket}
+          selectedChatCompare={selectedChatCompare}
+          fetchAllMessages={fetchAllMessages}
           // currentUser={currentUser}
           // setCurrentUser={setCurrentUser}
         />

@@ -59,7 +59,9 @@ function CreateGroup({
     } else {
       try {
         let res = await axios.get(
-          `https://lets-chat-5ou7.onrender.com/search?q=${searchforGroup}&id=${currentuser._id}`
+          process.env.REACT_APP_NODE_ENV === "production"
+            ? `https://lets-chat-5ou7.onrender.com/search?q=${searchforGroup}&id=${currentuser._id}`
+            : `http://localhost:3001/search?q=${searchforGroup}&id=${currentuser._id}`
         );
         // console.log(res.data);
         setSearchResultsForGroup(res.data.slice(0, 4));
@@ -84,7 +86,9 @@ function CreateGroup({
     } else {
       try {
         let res = await axios.post(
-          "https://lets-chat-5ou7.onrender.com/chat/createGroup",
+          process.env.REACT_APP_NODE_ENV === "production"
+            ? "https://lets-chat-5ou7.onrender.com/chat/createGroup"
+            : "http://localhost:3001/chat/createGroup",
           {
             cid: cid,
             uids: uids,
@@ -124,7 +128,7 @@ function CreateGroup({
         onClick={(e) => {
           e.stopPropagation();
         }}
-        className="w-[35%] h-fit bg-white    p-4 border border-slate-300 rounded-xl  shadow-[0_0px_15px_5px_#bfdbfe]"
+        className=" w-[85%] min-[400px]:w-[75%] sm:w-[50%] md:w-[45%] lg:w-[40%] xl:w-[35%] h-fit bg-white    p-4 border border-slate-300 rounded-xl  shadow-[0_0px_15px_5px_#bfdbfe]"
       >
         <div className="flex flex-col gap-4 pr-3 relative ">
           {/* <form className=" flex flex-col gap-3"> */}
