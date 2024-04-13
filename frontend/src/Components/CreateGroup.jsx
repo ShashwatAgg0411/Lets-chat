@@ -132,6 +132,29 @@ function CreateGroup({
       >
         <div className="flex flex-col gap-4 pr-3 relative ">
           {/* <form className=" flex flex-col gap-3"> */}
+
+          <div className=" flex justify-between items-center w-full h-fit border-b border-black border-opacity-20 pb-1">
+            <p className=" text-lg font-medium">Create Group</p>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              // width="1em"
+              // height="1em"
+              viewBox="0 0 16 16"
+              className="w-6 h-6 cursor-pointer "
+              onClick={() => {
+                setShowCreateGroup(false);
+              }}
+            >
+              <path
+                fill="none"
+                stroke="red"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="1.5"
+                d="m11.25 4.75l-6.5 6.5m0-6.5l6.5 6.5"
+              />
+            </svg>
+          </div>
           <input
             // className=" border-blue-200 px-2 py-1 rounded-md w-1/2 text-lg bg-[#C0DBEA] bg-opacity-50"
             className=" w-full px-6 py-2 rounded-lg font-medium bg-sky-50  bg-opacity-40 border border-blue-300 placeholder-gray-400 text-md focus:outline-none focus:border-blue-400 focus:bg-white focus:ring-1 focus:shadow-[0_0px_10px_5px_#bfdbfe]"
@@ -157,7 +180,7 @@ function CreateGroup({
               }}
             ></input>
           </form>
-          <div className="flex gap-3 justify-center h-fit w-full ">
+          <div className="flex gap-3 justify-center h-fit w-full flex-wrap ">
             {groupUsers &&
               groupUsers.map((u, idx) => (
                 <UserBadge

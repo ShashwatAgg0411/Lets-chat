@@ -18,7 +18,7 @@ function LeftPanel({
   const navigate = useNavigate();
   const [showNotification, setShowNotification] = useState(false);
   return (
-    <div className="w-[12%] sm:w-[6%] xl:w-[5%]   h-[100%] bg-[#6E00FF] rounded-xl ">
+    <div className="w-[15%] sm:w-[6%] xl:w-[5%]   h-[100%] bg-[#6E00FF] rounded-xl ">
       <div className="h-[100%] flex flex-col justify-between items-center py-2">
         <div className="flex items-center justify-center">
           <img

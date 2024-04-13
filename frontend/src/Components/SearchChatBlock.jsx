@@ -54,9 +54,17 @@ function SearchChatBlock({
       className="w-full h-fit   rounded-xl p-2 cursor-pointer "
     >
       <div className="flex gap-3 items-center">
-        <img src={Profile} alt="profile" className="w-8 h-8 "></img>
+        
+          <img
+            src={`https://api.dicebear.com/8.x/initials/svg?seed=${c.name}&radius=50&scale=90`}
+            alt="profile"
+            className="w-8 h-8 "
+          ></img>
+
         <div>
-          <p className="text-sm sm:text-xs md:text-sm font-medium line-clamp-1">{c.name}</p>
+          <p className="text-sm sm:text-xs md:text-sm font-medium line-clamp-1">
+            {c.name}
+          </p>
         </div>
       </div>
       <hr className="mt-1 " />
